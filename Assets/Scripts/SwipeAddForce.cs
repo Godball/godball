@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TouchTest : MonoBehaviour {
+public class SwipeAddForce : MonoBehaviour {
 
 	public float speed = 100f;
 	private Vector2 startPosition;
