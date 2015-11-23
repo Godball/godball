@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 
-public class SwipeAddForce : MonoBehaviour {
+public class SwipeAddForce : NetworkBehaviour {
 
 	public float speed = 100f;
 	private Vector2 startPosition;
@@ -11,10 +12,25 @@ public class SwipeAddForce : MonoBehaviour {
 
 	void Start()
 	{
-		rb = gameObject.GetComponent<Rigidbody> ();
+		rb = GameObject.Find("TheBallOfGods").GetComponent<Rigidbody> ();
 	}
 
-	void Update() {
+    public override void OnStartLocalPlayer()
+    {
+        // Do things for the local player, such as color changes and other UI elements.
+        base.OnStartLocalPlayer();
+    }
+
+    [Command]
+    void CmdPushBall(Vector3 direction)
+    {
+        rb.AddForce(direction * speed, ForceMode.Impulse);
+    }
+
+    void Update() {
+        if (!isLocalPlayer)
+            return;
+
 		if (Input.GetMouseButtonDown (0))
 		{
 			startPosition = Input.mousePosition; // Get first mouse position
@@ -23,11 +39,11 @@ public class SwipeAddForce : MonoBehaviour {
 		{
 			endPosition = Input.mousePosition;	// Get second mouse position
 			direction = endPosition - startPosition; // Get direction
-			direction.Normalize();	// Normalize the direction
-			//Debug.Log(direction.ToString());
+			direction.Normalize();  // Normalize the direction
+                                    //Debug.Log(direction.ToString());
 
-			// Add force to gameObject
-			rb.AddForce(new Vector3(direction.x,0,direction.y)*speed,ForceMode.VelocityChange);
+            // Add force to gameObject
+            CmdPushBall(new Vector3(direction.x, 0, direction.y));
 
 
 		}
