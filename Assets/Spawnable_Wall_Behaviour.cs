@@ -28,7 +28,7 @@ public class Spawnable_Wall_Behaviour : MonoBehaviour {
 
         float distCovered = (Time.time - startTime) * speed;
         float fracJourney = distCovered / journeyLength;
-        Debug.Log(string.Format("Start: {0} - End: {1} - Frac: {2}", startMarker.ToString(), endMarker.ToString(), fracJourney.ToString()));
+        //Debug.Log(string.Format("Start: {0} - End: {1} - Frac: {2}", startMarker.ToString(), endMarker.ToString(), fracJourney.ToString()));
         transform.position = Vector3.Lerp(startMarker, endMarker, fracJourney);
     }
 }

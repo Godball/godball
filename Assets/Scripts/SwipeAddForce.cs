@@ -1,18 +1,31 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
+using UnityEngine.UI;
 
 public class SwipeAddForce : NetworkBehaviour {
 
 	public float speed = 100f;
+	public float cooldownTime;
+	private Text onCooldownText;
+	private float onCooldownTime;
+	private bool onCooldown;
 	private Vector2 startPosition;
 	private Vector2 endPosition;
 	private Vector2 direction;
 	private Rigidbody rb;
 
-	void Start()
+	void Awake()
 	{
 		rb = GameObject.Find("TheBallOfGods").GetComponent<Rigidbody> ();
+		onCooldownText = GameObject.Find ("Swipe Cooldown Text").GetComponent<Text>();
+	}
+
+	void Start()
+	{
+		onCooldown = false;
+		onCooldownTime = cooldownTime;
+		onCooldownText.text = "Tja";
 	}
 
     public override void OnStartLocalPlayer()
@@ -31,21 +44,32 @@ public class SwipeAddForce : NetworkBehaviour {
         if (!isLocalPlayer)
             return;
 
-		if (Input.GetMouseButtonDown (0))
-		{
-			startPosition = Input.mousePosition; // Get first mouse position
+		if (!onCooldown) {
+			if (Input.GetMouseButtonDown (0)) {
+				startPosition = Input.mousePosition; // Get first mouse position
+			}
+			if (Input.GetMouseButtonUp (0)) {
+				endPosition = Input.mousePosition;	// Get second mouse position
+				direction = endPosition - startPosition; // Get direction
+				direction.Normalize ();  // Normalize the direction
+				//Debug.Log(direction.ToString());
+
+				// Add force to gameObject
+				CmdPushBall (new Vector3 (direction.x, 0, direction.y));
+
+				// Start Cooldown
+				onCooldown = true;
+			}
 		}
-		if (Input.GetMouseButtonUp (0)) 
+		else if(onCooldown)
 		{
-			endPosition = Input.mousePosition;	// Get second mouse position
-			direction = endPosition - startPosition; // Get direction
-			direction.Normalize();  // Normalize the direction
-                                    //Debug.Log(direction.ToString());
-
-            // Add force to gameObject
-            CmdPushBall(new Vector3(direction.x, 0, direction.y));
-
-
+			onCooldownTime -= Time.deltaTime;
+			if(onCooldownTime <= 0)
+			{
+				onCooldown = false;
+				onCooldownTime = cooldownTime;
+			}
+			onCooldownText.text = onCooldownTime.ToString();
 		}
 	}
 }
