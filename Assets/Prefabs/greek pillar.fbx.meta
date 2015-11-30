@@ -1,0 +1,111 @@
+fileFormatVersion: 2
+guid: 418fee85bdee91d488aab317f48febda
+timeCreated: 1448881847
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: doric_capital
+    100002: doric_capital.Shape
+    100004: doric_pedestal
+    100006: doric_pedestal.Shape
+    100008: //RootNode
+    100010: ionic_column
+    100012: ionic_column.Shape
+    100014: ionic_column_40
+    100016: ionic_pedestal
+    100018: ionic_pedestal.Shape
+    100020: ionic_pedestal_228
+    100022: ionic_pedestal_228.Shape
+    400000: doric_capital
+    400002: doric_capital.Shape
+    400004: doric_pedestal
+    400006: doric_pedestal.Shape
+    400008: //RootNode
+    400010: ionic_column
+    400012: ionic_column.Shape
+    400014: ionic_column_40
+    400016: ionic_pedestal
+    400018: ionic_pedestal.Shape
+    400020: ionic_pedestal_228
+    400022: ionic_pedestal_228.Shape
+    2300000: doric_capital.Shape
+    2300002: doric_pedestal.Shape
+    2300004: ionic_column.Shape
+    2300006: ionic_pedestal.Shape
+    2300008: ionic_pedestal_228.Shape
+    3300000: doric_capital.Shape
+    3300002: doric_pedestal.Shape
+    3300004: ionic_column.Shape
+    3300006: ionic_pedestal.Shape
+    3300008: ionic_pedestal_228.Shape
+    4300000: doric_pedestal.Shape
+    4300002: ionic_column.Shape
+    4300004: ionic_pedestal.Shape
+    4300006: ionic_pedestal_228.Shape
+    4300008: doric_capital.Shape
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
