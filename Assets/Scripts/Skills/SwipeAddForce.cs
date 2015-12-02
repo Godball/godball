@@ -18,14 +18,14 @@ public class SwipeAddForce : NetworkBehaviour {
 	void Awake()
 	{
 		rb = GameObject.Find("TheBallOfGods").GetComponent<Rigidbody> ();
-		onCooldownText = GameObject.Find ("Swipe Cooldown Text").GetComponent<Text>();
+		//onCooldownText = GameObject.Find ("Swipe Cooldown Text").GetComponent<Text>();
 	}
 
 	void Start()
 	{
 		onCooldown = false;
 		onCooldownTime = cooldownTime;
-		onCooldownText.text = "Tja";
+		//onCooldownText.text = "Tja";
 	}
 
     public override void OnStartLocalPlayer()
