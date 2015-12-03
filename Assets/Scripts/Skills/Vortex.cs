@@ -1,12 +1,12 @@
-﻿using UnityEngine;
+﻿ using UnityEngine;
 using System.Collections;
 
-public class CreateWall : Skill {
-
+public class Vortex : Skill
+{
     public Object prefab;
     private Vector3 mousePos;
-    private Plane plane = new Plane(Vector3.up, Vector3.zero); // playing field plane to intersect
     private Ray ray;
+    private Plane plane = new Plane(Vector3.up, Vector3.zero);
     private float distance;
 
     void Activate()
@@ -19,12 +19,11 @@ public class CreateWall : Skill {
             if (plane.Raycast(ray, out distance)) // find where the ray intersects the playing field
             {
                 Vector3 point = ray.GetPoint(distance); // get coordinates of intersection
-                Instantiate(prefab, point, Quaternion.identity); // spawn the wall
+                Instantiate(prefab, point, Quaternion.identity); // spawn the vortex
             }
+
 
             startCooldown();
         }
-
     }
-
 }

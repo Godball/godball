@@ -20,6 +20,7 @@ public class Spawnable_Wall_Behaviour : MonoBehaviour {
         endMarker = startMarker + new Vector3(0, 1, 0);
         journeyLength = Vector3.Distance(startMarker, endMarker);
     }
+
     void Update()
     {
         if ((Time.time - startTime) > lifespan)
