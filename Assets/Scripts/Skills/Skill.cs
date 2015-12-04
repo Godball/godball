@@ -4,9 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 
 public class Skill : NetworkBehaviour
-
 {
-    
     public string skillName;
     public float skillNumber;
     public bool activeSkill;
@@ -14,7 +12,7 @@ public class Skill : NetworkBehaviour
     public float skillStartTime;
     public float cooldownRemaining;
     public Rigidbody rb;
-
+	public int floorMask;
 
     private GameObject skillbar;
 
@@ -23,9 +21,8 @@ public class Skill : NetworkBehaviour
         skillbar = transform.parent.gameObject; // get the skillbar
         skillStartTime = 0;
         rb = GameObject.Find("TheBallOfGods").GetComponent<Rigidbody>();
+		floorMask = LayerMask.GetMask ("PlayingArea"); // Player1Area & Player2Area are on the layer PlayingArea
     }
-
-    
 
     // displays the cooldown
     void displayCoolDown()

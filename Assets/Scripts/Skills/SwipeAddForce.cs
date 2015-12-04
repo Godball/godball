@@ -4,7 +4,7 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class SwipeAddForce : NetworkBehaviour {
-
+	/*
 	public float speed = 100f;
 	public float cooldownTime;
 	private Text onCooldownText;
@@ -72,4 +72,5 @@ public class SwipeAddForce : NetworkBehaviour {
 			onCooldownText.text = onCooldownTime.ToString();
 		}
 	}
+	*/
 }

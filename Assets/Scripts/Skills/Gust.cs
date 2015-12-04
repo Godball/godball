@@ -2,15 +2,15 @@
 using System.Collections;
 using UnityEngine.Networking;
 
-public class Gust : Skill {
-
+public class Gust : Skill 
+{
     public float speed = 100f;
-    private Vector2 startPosition;
-    private Vector2 endPosition;
-    private Vector2 direction;
+    private Vector3 startPosition;
+    private Vector3 endPosition;
+    private Vector3 direction;
 
     [Command]
-    void CmdPushBall(Vector3 direction)
+    void CmdPushBall(Vector3 direction) // Sync with server
     {
         rb.AddForce(direction * speed, ForceMode.Impulse);
     }
@@ -19,7 +19,6 @@ public class Gust : Skill {
     {
         if (checkActive() && !checkOnCooldown()) // check if we can cast it
         {
-
             StartCoroutine(mouseClick());
         }
     }
@@ -41,8 +40,11 @@ public class Gust : Skill {
         direction = endPosition - startPosition; // Get direction
         direction.Normalize();  // Normalize the direction
 
+		Debug.Log (direction);
+
         // Add force to gameObject
-        rb.AddForce(direction * speed, ForceMode.Impulse);
+        //rb.AddForce(direction * speed, ForceMode.Impulse);
+		CmdPushBall (new Vector3 (direction.x, 0, direction.y));
 
         startCooldown();
         yield return new WaitForFixedUpdate();

@@ -13,12 +13,12 @@ public class Vortex : Skill
     {
         if (checkActive() && !checkOnCooldown()) // check if we can cast it
         {
-            mousePos = Input.mousePosition;
-            ray = Camera.main.ScreenPointToRay(mousePos); // create a ray at mouse position
+			ray = Camera.main.ScreenPointToRay(Input.mousePosition); // create a ray at mouse position
+			RaycastHit floorHit; // Store information about what was hit by the ray
 
-            if (plane.Raycast(ray, out distance)) // find where the ray intersects the playing field
+			if (Physics.Raycast(ray, out floorHit, 100, floorMask)) // Check if ray intersects playingFieldLayer
             {
-                Vector3 point = ray.GetPoint(distance); // get coordinates of intersection
+				Vector3 point = floorHit.point; // get coordinates of intersection
                 Instantiate(prefab, point, Quaternion.identity); // spawn the vortex
             }
 
