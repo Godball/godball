@@ -5,7 +5,6 @@ public class CreateWall : Skill
 {
     public Object prefab;
     private Vector3 mousePos;
-    private Plane plane = new Plane(Vector3.up, Vector3.zero); // playing field plane to intersect
     private Ray ray;
     private float distance;
 
@@ -20,9 +19,11 @@ public class CreateWall : Skill
             {
 				Vector3 point = floorHit.point; // get coordinates of intersection
                 Instantiate(prefab, point, Quaternion.identity); // spawn the wall
+
+                startCooldown();
             }
 
-            startCooldown();
+
         }
 
     }

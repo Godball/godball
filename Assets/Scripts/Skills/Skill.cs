@@ -13,13 +13,20 @@ public class Skill : NetworkBehaviour
     public float cooldownRemaining;
     public Rigidbody rb;
 	public int floorMask;
+    public Slider cooldown;
+    public Image fillImage;
+    public Color ready = Color.white;
+    public Color notReady = Color.red;
+
 
     private GameObject skillbar;
 
     void Awake()
     {
         skillbar = transform.parent.gameObject; // get the skillbar
-        skillStartTime = 0;
+        cooldown.maxValue = cooldownTime;
+
+        startCooldown();
         rb = GameObject.Find("TheBallOfGods").GetComponent<Rigidbody>();
 		floorMask = LayerMask.GetMask ("PlayingArea"); // Player1Area & Player2Area are on the layer PlayingArea
     }
@@ -27,13 +34,18 @@ public class Skill : NetworkBehaviour
     // displays the cooldown
     void displayCoolDown()
     {
-        if (cooldownRemaining > 0)
+        
+        if (cooldownRemaining > 0f)
         {
             cooldownRemaining = cooldownRemaining - Time.deltaTime;
-        }
-          
-        // TODO: display cooldownRemaining in a nice way
 
+            cooldown.value = cooldownRemaining;
+            fillImage.color = notReady;
+
+        } else
+        {
+            fillImage.color = ready;
+        }
     }
 
     public void startCooldown()

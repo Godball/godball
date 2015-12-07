@@ -6,7 +6,6 @@ public class Vortex : Skill
     public Object prefab;
     private Vector3 mousePos;
     private Ray ray;
-    private Plane plane = new Plane(Vector3.up, Vector3.zero);
     private float distance;
 
     void Activate()
@@ -20,10 +19,12 @@ public class Vortex : Skill
             {
 				Vector3 point = floorHit.point; // get coordinates of intersection
                 Instantiate(prefab, point, Quaternion.identity); // spawn the vortex
+
+                startCooldown();
             }
 
 
-            startCooldown();
+
         }
     }
 }
