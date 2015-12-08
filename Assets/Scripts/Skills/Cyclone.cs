@@ -1,7 +1,7 @@
 ﻿ using UnityEngine;
 using System.Collections;
 
-public class Vortex : Skill
+public class Cyclone: Skill
 {
     public Object prefab;
     private Vector3 mousePos;
