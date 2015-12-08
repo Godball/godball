@@ -5,15 +5,21 @@ using UnityEngine.EventSystems;
 
 public class SpellButtonsController : MonoBehaviour 
 {
-	public bool spell1 = false;
-	public bool spell2 = false;
-	public bool spell3 = false;
-	public bool spell4 = false;
-	private Button[] button;
+    public bool[] spells;
+    private Button[] button;
+    private int numberOfSpells;
 
 	void Awake()
 	{
 		button = GetComponentsInChildren<Button> ();
+        numberOfSpells = button.Length;
+        spells = new bool[numberOfSpells];
+
+        // set all spells to false
+        for(int i = 0; i<numberOfSpells; i++)
+        {
+            spells[i] = false;
+        }
 	}
 	void Start()
 	{
@@ -25,77 +31,27 @@ public class SpellButtonsController : MonoBehaviour
 
 	public void Spells(int whatSpell)
 	{
-		if(whatSpell == 1)
-		{
-			if(spell1 == false)
-			{
-				button[0].image.color = Color.green;
-				spell1 = true;
+        for(int i = 0; i < numberOfSpells; i++) // go through all spells
+        {
+            if(whatSpell == i && spells[i] == false) // find the one clicked on, and if it is not the one active atm
+            {
+                    for(int j = 0; j<button.Length; j++) // go through all buttons
+                    {
+                        // set active spell green, all else white
+                        if (j == i)
+                        {
+                            spells[j] = true;
+                            button[j].image.color = Color.green;
+                            
+                        }
+                        else {
+                            spells[j] = false;
+                            button[j].image.color = Color.white;
+                            
+                        }
 
-				button[1].image.color = Color.white;
-				spell2 = false;
-
-				button[2].image.color = Color.white;
-				spell3 = false;
-
-				button[3].image.color = Color.white;
-				spell4 = false;
-			}
-			//Debug.Log (whatSpell + " Was pressed");
-		}
-		if(whatSpell == 2)
-		{
-			if(spell2 == false)
-			{
-				spell2 = true;
-				button[1].image.color = Color.green;
-
-				button[0].image.color = Color.white;
-				spell1 = false;
-
-				button[2].image.color = Color.white;
-				spell3 = false;
-
-				button[3].image.color = Color.white;
-				spell4 = false;
-			}
-			//Debug.Log (whatSpell + " Was pressed");
-		}
-		if(whatSpell == 3)
-		{
-			if(spell3 == false)
-			{
-				spell3 = true;
-				button[2].image.color = Color.green;
-				
-				button[0].image.color = Color.white;
-				spell1 = false;
-
-				button[1].image.color = Color.white;
-				spell2 = false;
-
-				button[3].image.color = Color.white;
-				spell4 = false;
-			}
-			//Debug.Log (whatSpell + " Was pressed");
-		}
-		if(whatSpell == 4)
-		{
-			if(spell4 == false)
-			{
-				spell4 = true;
-				button[3].image.color = Color.green;
-
-				button[0].image.color = Color.white;
-				spell1 = false;
-
-				button[1].image.color = Color.white;
-				spell2 = false;
-
-				button[2].image.color = Color.white;
-				spell3 = false;
-			}
-			//Debug.Log (whatSpell + " Was pressed");
-		}
-	}
+                    }
+                }
+        }
+    }
 }

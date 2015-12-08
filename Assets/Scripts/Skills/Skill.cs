@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 public class Skill : NetworkBehaviour
 {
     public string skillName;
-    public float skillNumber;
+    public int skillNumber;
     public bool activeSkill;
     public float cooldownTime;
     public float skillStartTime;
@@ -69,11 +69,7 @@ public class Skill : NetworkBehaviour
     // checks if the skill is active
     public bool checkActive()
     {
-        if (skillNumber == 1) return skillbar.GetComponent<SpellButtonsController>().spell1;
-        if (skillNumber == 2) return skillbar.GetComponent<SpellButtonsController>().spell2;
-        if (skillNumber == 3) return skillbar.GetComponent<SpellButtonsController>().spell3;
-        if (skillNumber == 4) return skillbar.GetComponent<SpellButtonsController>().spell4;
-        return false;
+        return skillbar.GetComponent<SpellButtonsController>().spells[skillNumber];
     }
 
     void Update()
