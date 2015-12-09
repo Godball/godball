@@ -8,9 +8,9 @@ public class CreateWall : Skill
     private Ray ray;
     private float distance;
 
-    void Activate()
+    public override void Activate()
     {
-        if (checkActive() && !checkOnCooldown()) // check if we can cast it
+        if (!checkOnCooldown()) // check if we can cast it
         {
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition); // create a ray at mouse position
 			RaycastHit floorHit; // Store information about what was hit by the ray
