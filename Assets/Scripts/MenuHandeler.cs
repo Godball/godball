@@ -10,6 +10,7 @@ public class MenuHandeler : MonoBehaviour {
 	public Canvas mainMenu;
 	public Canvas heroSelection;
 	public Canvas options;
+    public Canvas modeScreen; // Client or host
 
 	public Button thorButton;
 	public Button zeusButton;
@@ -26,7 +27,8 @@ public class MenuHandeler : MonoBehaviour {
 
 	void Start()
 	{
-		mainMenu.enabled = true;
+        modeScreen.enabled = true;
+		mainMenu.enabled = false;
 		heroSelection.enabled = false;
 		options.enabled = false;
 
@@ -58,6 +60,19 @@ public class MenuHandeler : MonoBehaviour {
 		options.enabled = true;
 		mainMenu.enabled = false;
 	}
+
+    public void ClientButton()
+    {
+        mainMenu.enabled = true;
+
+        GlobalSettings.instance.hostAddress = GameObject.Find("IPInput").GetComponent<InputField>().text;
+    }
+
+    public void HostButton()
+    {
+        GlobalSettings.instance.isServer = true;
+        ReadyButton();
+    }
 
 	public void QuitButton()
 	{
