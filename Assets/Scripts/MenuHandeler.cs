@@ -30,8 +30,8 @@ public class MenuHandeler : MonoBehaviour {
 
 	void Start()
 	{
-        modeScreen.enabled = false;
-		mainMenu.enabled = true;
+        modeScreen.enabled = true;
+		mainMenu.enabled = false;
 		heroSelection.enabled = false;
 		options.enabled = false;
 
