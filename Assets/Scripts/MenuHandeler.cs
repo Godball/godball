@@ -14,21 +14,24 @@ public class MenuHandeler : MonoBehaviour {
 
 	public Button thorButton;
 	public Button zeusButton;
-	public Image thorSelectColor;
-	public Image zeusSelectColor;
-	public Button readyButton;
+    public Button readyButton;
 
+    public Image thorSelectColor; // Hilight Selection
+	public Image zeusSelectColor;
+    public Image thorSpellsInfo; // Show spells info
+    public Image zeusSpellsInfo;
+	
 	private bool thorSelected;
 	private bool zeusSelected;
 	private bool readyButtonActive;
 
-	private Color selectedColor;
-	private Color disabledColor;
+	//private Color selectedColor;
+	//private Color disabledColor;
 
 	void Start()
 	{
-        modeScreen.enabled = true;
-		mainMenu.enabled = false;
+        modeScreen.enabled = false;
+		mainMenu.enabled = true;
 		heroSelection.enabled = false;
 		options.enabled = false;
 
@@ -38,15 +41,12 @@ public class MenuHandeler : MonoBehaviour {
 		readyButtonActive = false;
 		readyButton.interactable = false;
 
-		selectedColor = Color.green;
-		selectedColor.a = 0.5f;
+        thorSelectColor.enabled = false;
+        zeusSelectColor.enabled = false;
 
-		disabledColor = Color.clear;
-		disabledColor.a = 0f;
-
-		thorSelectColor.color = disabledColor;
-		zeusSelectColor.color = disabledColor;
-	}
+        thorSpellsInfo.enabled = false;
+        zeusSpellsInfo.enabled = false;
+    }
 
 	// Main menu Functions for Buttons
 	public void PlayButton()
@@ -84,8 +84,10 @@ public class MenuHandeler : MonoBehaviour {
 	{
 		thorSelected = true;
 		zeusSelected = false;
-		thorSelectColor.color = selectedColor;
-		zeusSelectColor.color = disabledColor;
+        thorSpellsInfo.enabled = true;
+        zeusSpellsInfo.enabled = false;
+        thorSelectColor.enabled = true;
+        zeusSelectColor.enabled = false;
 
 		if(!readyButtonActive)
 		{
@@ -98,10 +100,12 @@ public class MenuHandeler : MonoBehaviour {
 	{
 		thorSelected = false;
 		zeusSelected = true;
-		zeusSelectColor.color = selectedColor;
-		thorSelectColor.color = disabledColor;
+        thorSpellsInfo.enabled = false;
+        zeusSpellsInfo.enabled = true;
+        thorSelectColor.enabled = false;
+        zeusSelectColor.enabled = true;
 
-		if(!readyButtonActive)
+        if (!readyButtonActive)
 		{
 			readyButtonActive = true;
 			readyButton.interactable = true;
@@ -119,12 +123,15 @@ public class MenuHandeler : MonoBehaviour {
 	{
 		thorSelected = true;
 		zeusSelected = false;
-		thorSelectColor.color = disabledColor;
-		zeusSelectColor.color = disabledColor;
+        thorSelectColor.enabled = false;
+        zeusSelectColor.enabled = false;
 
 		mainMenu.enabled = true;
 		heroSelection.enabled = false;
 		options.enabled = false;
+
+        thorSpellsInfo.enabled = false;
+        zeusSpellsInfo.enabled = false;
 
 		readyButtonActive = false;
 		readyButton.interactable = false;
