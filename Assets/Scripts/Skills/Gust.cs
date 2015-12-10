@@ -8,16 +8,18 @@ public class Gust : Skill
     private Vector3 startPosition;
     private Vector3 endPosition;
     private Vector3 direction;
+    //Rigidbody ball_rb;
 
     [Command]
     void CmdPushBall(Vector3 direction) // Sync with server
     {
-        rb.AddForce(direction * speed, ForceMode.Impulse);
+        ball_rb = GameObject.Find("TheBallOfGods").GetComponent<Rigidbody>();
+        ball_rb.AddForce(direction * speed, ForceMode.Impulse);
     }
 
-    void Activate()
+    public override void Activate()
     {
-        if (checkActive() && !checkOnCooldown()) // check if we can cast it
+        if (!checkOnCooldown()) // check if we can cast it
         {
             StartCoroutine(mouseClick());
         }

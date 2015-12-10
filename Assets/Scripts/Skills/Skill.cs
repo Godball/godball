@@ -11,41 +11,24 @@ public class Skill : NetworkBehaviour
     public float cooldownTime;
     public float skillStartTime;
     public float cooldownRemaining;
-    public Rigidbody rb;
+    public Rigidbody ball_rb;
 	public int floorMask;
-    public Slider cooldown;
-    public Image fillImage;
-    public Color ready = Color.white;
-    public Color notReady = Color.red;
-
-
-    private GameObject skillbar;
 
     void Awake()
     {
-        skillbar = transform.parent.gameObject; // get the skillbar
-        cooldown.maxValue = cooldownTime;
+        //skillbar = transform.parent.gameObject; // get the skillbar
+        //cooldown.maxValue = cooldownTime;
 
         startCooldown();
-        rb = GameObject.Find("TheBallOfGods").GetComponent<Rigidbody>();
+        //ball_rb = GameObject.Find("TheBallOfGods").GetComponent<Rigidbody>();
 		floorMask = LayerMask.GetMask ("PlayingArea"); // Player1Area & Player2Area are on the layer PlayingArea
     }
 
-    // displays the cooldown
-    void displayCoolDown()
+    [Command]
+    public void CmdSpawnOnServer(GameObject obj)
     {
-        
-        if (cooldownRemaining > 0f)
-        {
-            cooldownRemaining = cooldownRemaining - Time.deltaTime;
-
-            cooldown.value = cooldownRemaining;
-            fillImage.color = notReady;
-
-        } else
-        {
-            fillImage.color = ready;
-        }
+        Debug.LogError("Obj: " + obj.ToString());
+        NetworkServer.Spawn(obj);
     }
 
     public void startCooldown()
@@ -57,25 +40,10 @@ public class Skill : NetworkBehaviour
     // checks if the skill is on cooldown or not
     public bool checkOnCooldown()
     {
-        if (Time.time > skillStartTime + cooldownTime)
-        {
-            return false;
-        } else
-        {
-            return true;
-        }
+        Debug.Log("Checking " + Time.time + " > " + (skillStartTime + cooldownTime));
+        return (Time.time < skillStartTime + cooldownTime);
     }
 
-    // checks if the skill is active
-    public bool checkActive()
-    {
-        return skillbar.GetComponent<SpellButtonsController>().spells[skillNumber];
-    }
-
-    void Update()
-    {
-        if (checkOnCooldown()) displayCoolDown();
-
-    }
+    public virtual void Activate(){}
 }
 

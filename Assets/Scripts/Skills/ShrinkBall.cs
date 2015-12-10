@@ -8,16 +8,16 @@ public class ShrinkBall : Skill {
     public float duration;
     private Ray ray;
 
-    void Activate ()
+    public override void Activate()
     {
-        if (checkActive() && !checkOnCooldown()) // check if we can cast it
+        if (!checkOnCooldown()) // check if we can cast it
         {
             ray = Camera.main.ScreenPointToRay(Input.mousePosition); // create a ray at mouse position
 
             if (Physics.Raycast(ray, floorMask)) // Check if ray intersects playingFieldLayer
             {
                 scale = new Vector3(shrinking, shrinking, shrinking);
-                rb.transform.localScale -= scale;
+                ball_rb.transform.localScale -= scale;
 
                 startCooldown();
 
@@ -34,6 +34,6 @@ public class ShrinkBall : Skill {
 
     void scaleUP()
     {
-        rb.transform.localScale += scale;
+        ball_rb.transform.localScale += scale;
     }
 }

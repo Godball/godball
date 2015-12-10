@@ -1,57 +1,27 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class SpellButtonsController : MonoBehaviour 
 {
-    public bool[] spells;
-    private Button[] button;
-    private int numberOfSpells;
-
-	void Awake()
-	{
-		button = GetComponentsInChildren<Button> ();
-        numberOfSpells = button.Length;
-        spells = new bool[numberOfSpells];
-
-        // set all spells to false
-        for(int i = 0; i<numberOfSpells; i++)
-        {
-            spells[i] = false;
-        }
-	}
 	void Start()
 	{
-		foreach (Button b in button) 
-		{
-			b.image.color = Color.white;
-		}
 	}
 
-	public void Spells(int whatSpell)
-	{
-        for(int i = 0; i < numberOfSpells; i++) // go through all spells
+    public void SelectSpell(int skillIndex)
+    {
+        //Debug.Log(GameObject.FindGameObjectWithTag("Player"));
+        //Debug.Log(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>());
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        Debug.Log(players.Length);
+        System.Collections.Generic.List<PlayerController> pc = GameObject.Find("NetworkManager").GetComponent<NetworkManager>().client.connection.playerControllers;
+        foreach (PlayerController player in pc)
         {
-            if(whatSpell == i && spells[i] == false) // find the one clicked on, and if it is not the one active atm
-            {
-                    for(int j = 0; j<button.Length; j++) // go through all buttons
-                    {
-                        // set active spell green, all else white
-                        if (j == i)
-                        {
-                            spells[j] = true;
-                            button[j].image.color = Color.green;
-                            
-                        }
-                        else {
-                            spells[j] = false;
-                            button[j].image.color = Color.white;
-                            
-                        }
-
-                    }
-                }
+            Debug.Log("Player" + player.playerControllerId + " is " + player.unetView.isLocalPlayer);
+            player.gameObject.GetComponent<PlayerScript>().SelectSpell(skillIndex);
         }
+        //GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>().SelectSpell(skillIndex);
     }
 }
