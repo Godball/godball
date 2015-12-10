@@ -13,7 +13,7 @@ public class OnGoal : MonoBehaviour {
 		scoreCount = gameObject.GetComponent<ScoreCount> ();
 		rb = GetComponent<Rigidbody> ();
 		audio = GetComponent<AudioSource>();
-		score = (AudioClip) Resources.Load("Sounds/score.wav");
+		score = (AudioClip) Resources.Load("Sounds/score");
 	}
 
 	void OnTriggerEnter(Collider collision)
