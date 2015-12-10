@@ -5,15 +5,13 @@ public class OnGoal : MonoBehaviour {
 
 	private Rigidbody rb;
 	public ScoreCount scoreCount; // Reference to other Script
-	public AudioClip score;
-	public AudioSource audio;
+	public AudioSource scoreAudio;
 
 	void Start()
 	{
 		scoreCount = gameObject.GetComponent<ScoreCount> ();
 		rb = GetComponent<Rigidbody> ();
-		audio = GetComponent<AudioSource>();
-		score = (AudioClip) Resources.Load("Sounds/score");
+		scoreAudio = GameObject.Find("audioScore").GetComponent<AudioSource>();
 	}
 
 	void OnTriggerEnter(Collider collision)
@@ -22,8 +20,7 @@ public class OnGoal : MonoBehaviour {
 		rb.velocity = Vector3.zero;
 		rb.angularVelocity = Vector3.zero;
 		transform.position = new Vector3(0,3,0);
-
-		audio.PlayOneShot (score, 1.0F);
+		scoreAudio.Play ();
 
 		if (collision.gameObject.tag == "Player1Goal") 
 		{

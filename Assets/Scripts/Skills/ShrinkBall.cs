@@ -8,6 +8,7 @@ public class ShrinkBall : Skill {
     private Vector3 scale;
     public float duration;
     private Ray ray;
+	public AudioSource shrinkAudio;
 
     public override void Activate()
     {
@@ -35,7 +36,10 @@ public class ShrinkBall : Skill {
     void CmdscaleDown()
     {
         scale = new Vector3(shrinking, shrinking, shrinking);
+		shrinkAudio = GameObject.Find("audioShrink").GetComponent<AudioSource> ();
+		shrinkAudio.Play();
         ball_rb.transform.localScale -= scale;
+		duration = 3; //Added timeout value, outherwise ball was getting only bigger
         Invoke("CmdscaleUP", duration);
     }
 

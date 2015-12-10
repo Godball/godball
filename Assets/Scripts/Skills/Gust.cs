@@ -9,12 +9,15 @@ public class Gust : Skill
     private Vector3 endPosition;
     private Vector3 direction;
     //Rigidbody ball_rb;
+	public AudioSource gustAudio;
 
     [Command]
     void CmdPushBall(Vector3 direction) // Sync with server
     {
         ball_rb = GameObject.Find("TheBallOfGods").GetComponent<Rigidbody>();
         ball_rb.AddForce(direction * speed, ForceMode.Impulse);
+
+		gustAudio = GameObject.Find("audioGust").GetComponent<AudioSource> ();
     }
 
     public override void Activate()
@@ -47,6 +50,8 @@ public class Gust : Skill
         // Add force to gameObject
         //rb.AddForce(direction * speed, ForceMode.Impulse);
 		CmdPushBall (new Vector3 (direction.x, 0, direction.y));
+		//play HIT sound
+		gustAudio.Play();
 
         startCooldown();
         yield return new WaitForFixedUpdate();

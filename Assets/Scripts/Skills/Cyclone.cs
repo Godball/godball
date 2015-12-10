@@ -9,6 +9,9 @@ public class Cyclone: Skill
     private Ray ray;
     private float distance;
 
+	public AudioSource hurracaneAudio;
+
+
     public override void Activate()
     {
         if (!checkOnCooldown()) // check if we can cast it
@@ -29,7 +32,8 @@ public class Cyclone: Skill
     void Cmdspawnit(Vector3 point)
     {
         GameObject mag = (GameObject)Instantiate(prefab, point, Quaternion.identity); // spawn the vortex
-
+		hurracaneAudio = GameObject.Find("audioHurracane").GetComponent<AudioSource> ();
+		hurracaneAudio.Play();
         //Debug.LogError("Obj: " + mag.ToString());
         NetworkServer.Spawn(mag);
     }

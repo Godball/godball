@@ -8,6 +8,8 @@ public class Teleport : Skill {
     public Object teleportLight;
     private Ray ray;
     private Vector3 lightPos;
+	public AudioSource teleportAudio;
+
 
     public override void Activate()
     {
@@ -33,6 +35,8 @@ public class Teleport : Skill {
     {
         direction = new Vector3(direction.x, 0f, direction.z);
         ball_rb = GameObject.Find("TheBallOfGods").GetComponent<Rigidbody>();
+		teleportAudio = GameObject.Find("audioTeleport").GetComponent<AudioSource> ();
+
         // if the ball is within max distance allowed
         if (direction.magnitude <= distance)
         {
@@ -47,5 +51,6 @@ public class Teleport : Skill {
             ball_rb.position += direction;
         }
         Instantiate(teleportLight, new Vector3(lightPos.x, 7f, lightPos.z), Quaternion.Euler(90, 0, 0));
+		teleportAudio.Play();
     }
 }

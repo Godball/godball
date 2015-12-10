@@ -8,6 +8,7 @@ public class CreateWall : Skill
     private Vector3 mousePos;
     private Ray ray;
     private float distance;
+	public AudioSource wallAudio;
 
     public override void Activate()
     {
@@ -33,6 +34,8 @@ public class CreateWall : Skill
     void Cmdspawnit(Vector3 point)
     {
         GameObject mag = (GameObject)Instantiate(prefab, point, Quaternion.identity); // spawn the vortex
+		wallAudio = GameObject.Find("audioWall").GetComponent<AudioSource> ();
+		wallAudio.Play();
 
         //Debug.LogError("Obj: " + mag.ToString());
         NetworkServer.Spawn(mag);
