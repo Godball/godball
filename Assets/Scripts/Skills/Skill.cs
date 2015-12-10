@@ -13,13 +13,6 @@ public class Skill : NetworkBehaviour
     public float cooldownRemaining;
     public Rigidbody ball_rb;
 	public int floorMask;
-    //public Slider cooldown;
-    public Image fillImage;
-    public Color ready = Color.white;
-    public Color notReady = Color.red;
-
-
-    private GameObject skillbar;
 
     void Awake()
     {
@@ -27,25 +20,15 @@ public class Skill : NetworkBehaviour
         //cooldown.maxValue = cooldownTime;
 
         startCooldown();
-        ball_rb = GameObject.Find("TheBallOfGods").GetComponent<Rigidbody>();
+        //ball_rb = GameObject.Find("TheBallOfGods").GetComponent<Rigidbody>();
 		floorMask = LayerMask.GetMask ("PlayingArea"); // Player1Area & Player2Area are on the layer PlayingArea
     }
 
-    // displays the cooldown
-    void displayCoolDown()
+    [Command]
+    public void CmdSpawnOnServer(GameObject obj)
     {
-        
-        if (cooldownRemaining > 0f)
-        {
-            cooldownRemaining = cooldownRemaining - Time.deltaTime;
-
-            //cooldown.value = cooldownRemaining;
-            fillImage.color = notReady;
-
-        } else
-        {
-            fillImage.color = ready;
-        }
+        Debug.LogError("Obj: " + obj.ToString());
+        NetworkServer.Spawn(obj);
     }
 
     public void startCooldown()
@@ -57,21 +40,10 @@ public class Skill : NetworkBehaviour
     // checks if the skill is on cooldown or not
     public bool checkOnCooldown()
     {
-        if (Time.time > skillStartTime + cooldownTime)
-        {
-            return false;
-        } else
-        {
-            return true;
-        }
+        Debug.Log("Checking " + Time.time + " > " + (skillStartTime + cooldownTime));
+        return (Time.time < skillStartTime + cooldownTime);
     }
 
     public virtual void Activate(){}
-
-    void Update()
-    {
-        if (checkOnCooldown()) displayCoolDown();
-
-    }
 }
 

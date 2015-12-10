@@ -8,6 +8,7 @@ public class Gust : Skill
     private Vector3 startPosition;
     private Vector3 endPosition;
     private Vector3 direction;
+    //Rigidbody ball_rb;
 
     [Command]
     void CmdPushBall(Vector3 direction) // Sync with server

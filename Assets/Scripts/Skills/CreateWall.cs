@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 
 public class CreateWall : Skill 
@@ -18,14 +19,23 @@ public class CreateWall : Skill
             if (Physics.Raycast(ray, out floorHit, 100, floorMask)) // Check if ray intersects playingFieldLayer
             {
 				Vector3 point = floorHit.point; // get coordinates of intersection
-                Instantiate(prefab, point, Quaternion.identity); // spawn the wall
 
                 startCooldown();
+                Cmdspawnit(point);
             }
 
 
         }
 
+    }
+
+    [Command]
+    void Cmdspawnit(Vector3 point)
+    {
+        GameObject mag = (GameObject)Instantiate(prefab, point, Quaternion.identity); // spawn the vortex
+
+        //Debug.LogError("Obj: " + mag.ToString());
+        NetworkServer.Spawn(mag);
     }
 
 }

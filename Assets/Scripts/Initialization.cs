@@ -14,13 +14,9 @@ public class Initialization : MonoBehaviour {
         }
         else
         {
-            nm.networkAddress = GlobalSettings.instance.hostAddress;
+            //nm.networkAddress = GlobalSettings.instance.hostAddress;
+            nm.networkAddress = Network.player.ipAddress;
             nm.StartClient();
         }
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
 	}
 }
