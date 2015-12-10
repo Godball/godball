@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 
 public class ShrinkBall : Skill {
@@ -16,12 +17,10 @@ public class ShrinkBall : Skill {
 
             if (Physics.Raycast(ray, floorMask)) // Check if ray intersects playingFieldLayer
             {
-                scale = new Vector3(shrinking, shrinking, shrinking);
-                ball_rb.transform.localScale -= scale;
-
+                CmdscaleDown();
                 startCooldown();
 
-                Invoke("scaleUP", duration);
+                
             }
 
 
@@ -32,7 +31,15 @@ public class ShrinkBall : Skill {
         
     }
 
-    void scaleUP()
+    [Command]
+    void CmdscaleDown()
+    {
+        scale = new Vector3(shrinking, shrinking, shrinking);
+        ball_rb.transform.localScale -= scale;
+        Invoke("CmdscaleUP", duration);
+    }
+
+    void CmdscaleUP()
     {
         ball_rb.transform.localScale += scale;
     }

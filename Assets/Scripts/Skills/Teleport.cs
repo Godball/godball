@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 
 public class Teleport : Skill {
@@ -20,17 +21,18 @@ public class Teleport : Skill {
                 Vector3 point = floorHit.point; // get coordinates of intersection
                 Vector3 direction = point - ball_rb.position;
 
-                teleportBall(direction);
-                Instantiate(teleportLight,new Vector3(lightPos.x,7f,lightPos.z), Quaternion.Euler(90, 0, 0));
+                CmdteleportBall(direction);
+                
                 startCooldown();
             }
         }
     }
 
-    void teleportBall(Vector3 direction)
+    [Command]
+    void CmdteleportBall(Vector3 direction)
     {
         direction = new Vector3(direction.x, 0f, direction.z);
-
+        ball_rb = GameObject.Find("TheBallOfGods").GetComponent<Rigidbody>();
         // if the ball is within max distance allowed
         if (direction.magnitude <= distance)
         {
@@ -44,5 +46,6 @@ public class Teleport : Skill {
             lightPos = ball_rb.position + direction;
             ball_rb.position += direction;
         }
+        Instantiate(teleportLight, new Vector3(lightPos.x, 7f, lightPos.z), Quaternion.Euler(90, 0, 0));
     }
 }
