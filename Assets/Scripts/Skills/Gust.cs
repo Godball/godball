@@ -17,7 +17,6 @@ public class Gust : Skill
         ball_rb = GameObject.Find("TheBallOfGods").GetComponent<Rigidbody>();
         ball_rb.AddForce(direction * speed, ForceMode.Impulse);
 
-		gustAudio = GameObject.Find("audioGust").GetComponent<AudioSource> ();
     }
 
     public override void Activate()
@@ -25,6 +24,7 @@ public class Gust : Skill
         if (!checkOnCooldown()) // check if we can cast it
         {
             StartCoroutine(mouseClick());
+            startCooldown();
         }
     }
 
@@ -51,9 +51,10 @@ public class Gust : Skill
         //rb.AddForce(direction * speed, ForceMode.Impulse);
 		CmdPushBall (new Vector3 (direction.x, 0, direction.y));
 		//play HIT sound
+        gustAudio = GameObject.Find("audioGust").GetComponent<AudioSource>();
 		gustAudio.Play();
 
-        startCooldown();
+        
         yield return new WaitForFixedUpdate();
     }
 }

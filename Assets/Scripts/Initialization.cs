@@ -15,7 +15,8 @@ public class Initialization : MonoBehaviour {
         else
         {
             //nm.networkAddress = GlobalSettings.instance.hostAddress;
-            nm.networkAddress = Network.player.ipAddress;
+            //nm.networkAddress = Network.player.ipAddress;
+            nm.networkAddress = "130.229.177.221";
             nm.StartClient();
         }
 	}

@@ -19,7 +19,7 @@ public class Skill : NetworkBehaviour
         //skillbar = transform.parent.gameObject; // get the skillbar
         //cooldown.maxValue = cooldownTime;
 
-        startCooldown();
+        //startCooldown();
         ball_rb = GameObject.Find("TheBallOfGods").GetComponent<Rigidbody>();
 		floorMask = LayerMask.GetMask ("PlayingArea"); // Player1Area & Player2Area are on the layer PlayingArea
     }
