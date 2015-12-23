@@ -32,10 +32,9 @@ public class Skillbar : MonoBehaviour
             // active skill green, on cooldown red, all other grey
             GUI.color = Color.grey;
             if (skill == activeSkill) GUI.color = Color.green;
-            if (skill.checkOnCooldown()) GUI.color = Color.red;
+            if (skill.isOnCooldown()) GUI.color = Color.red;
 
-
-            if (GUILayout.Button(skill.skillName, GUILayout.Width(150), GUILayout.Height(64)))
+            if (GUILayout.Button(skill.SkillName, GUILayout.Width(150), GUILayout.Height(64)))
             {
                 SetActiveSkill(skill);
             }

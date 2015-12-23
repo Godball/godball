@@ -9,23 +9,20 @@ public class Teleport : Skill {
     private Ray ray;
     private Vector3 lightPos;
 	public AudioSource teleportAudio;
+    Rigidbody ball_rb;
 
-
-    public override void Activate()
+    [Command]
+    public override void CmdActivate(Arguments args)
     {
-        if (!checkOnCooldown()) // check if we can cast it
+        if (!isOnCooldown()) // check if we can cast it
         {
-            ray = Camera.main.ScreenPointToRay(Input.mousePosition); // create a ray at mouse position
-            RaycastHit floorHit; // Store information about what was hit by the ray
-
-            if (Physics.Raycast(ray, out floorHit, 100, floorMask)) // Check if ray intersects playingFieldLayer
+            ball_rb = GameObject.Find("TheBallOfGods").GetComponent<Rigidbody>();
+            Vector3 point = GetClickPoint();
+            if (!point.Equals(new Vector3()))
             {
-                Vector3 point = floorHit.point; // get coordinates of intersection
-                Vector3 direction = point - ball_rb.position;
-
-                CmdteleportBall(direction);
-                
                 startCooldown();
+                Vector3 direction = point - ball_rb.position;
+                CmdteleportBall(direction);
             }
         }
     }

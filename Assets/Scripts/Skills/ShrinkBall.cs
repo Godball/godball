@@ -9,27 +9,20 @@ public class ShrinkBall : Skill {
     public float duration;
     private Ray ray;
 	public AudioSource shrinkAudio;
+    Rigidbody ball_rb;
 
-    public override void Activate()
+    [Command]
+    public override void CmdActivate(Arguments args)
     {
-        if (!checkOnCooldown()) // check if we can cast it
+        if (!isOnCooldown()) // check if we can cast it
         {
-            ray = Camera.main.ScreenPointToRay(Input.mousePosition); // create a ray at mouse position
-
-            if (Physics.Raycast(ray, floorMask)) // Check if ray intersects playingFieldLayer
+            Vector3 point = GetClickPoint();
+            if (!point.Equals(new Vector3()))
             {
-                CmdscaleDown();
                 startCooldown();
-
-                
+                CmdscaleDown();
             }
-
-
-
-
-            
         }
-        
     }
 
     [Command]

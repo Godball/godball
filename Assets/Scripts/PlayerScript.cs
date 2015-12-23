@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Collections;
+using System;
 
 public class PlayerScript : NetworkBehaviour {
 
@@ -10,10 +11,26 @@ public class PlayerScript : NetworkBehaviour {
 
     public Skill[] skills = null;
 
-    Skill activeSkill = null;
+    int activeSkill = -1;
+
+    GameManager gameManager;
+
+    void Awake()
+    {
+        
+    }
 
 	// Use this for initialization
 	void Start () {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>().instance;
+        try
+        {
+            gameManager.RegisterUser(this);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError(e);
+        }
 
         // Initialize the skills
         skills = new Skill[5];
@@ -23,6 +40,7 @@ public class PlayerScript : NetworkBehaviour {
         skills[2] = gameObject.GetComponent<Teleport>();
         skills[3] = gameObject.GetComponent<ShrinkBall>();
         skills[4] = gameObject.GetComponent<CreateWall>();
+        activeSkill = 0;
         //Debug.LogError("I am " + this.ToString());
 	}
 	
@@ -32,25 +50,26 @@ public class PlayerScript : NetworkBehaviour {
         if (!isLocalPlayer)
             return;
         // Refine this. Do not allow it to trigger on clicks not positioned on the game board.
-        if (Input.GetMouseButtonDown(0) && activeSkill != null)
+        if (Input.GetMouseButtonDown(0) && activeSkill != -1)
         {
             Debug.Log("Activating");
-            activeSkill.Activate();
+            skills[activeSkill].Use();
+            //gameManager.InvokeSkill(this, activeSkill, args);
         }
 
-        displayCoolDown();
+        //displayCoolDown();
 	}
 
     public void SelectSpell(int skillIndex)
     {
         //Debug.LogError("Selecting spell " + skillIndex + " which is " + skills[skillIndex].ToString());
-        if (activeSkill != skills[skillIndex])
+        if (activeSkill != skillIndex)
         {
             foreach (Button b in GameObject.Find("Skillbar").GetComponentsInChildren<Button>()) {
                 b.image.color = Color.white;
             }
             GameObject.Find("Skill " + skillIndex).GetComponent<Button>().image.color = Color.green;
-            activeSkill = skills[skillIndex];
+            activeSkill = skillIndex;
             Debug.Log(activeSkill);
         }
     }
@@ -62,11 +81,11 @@ public class PlayerScript : NetworkBehaviour {
         GameObject[] fills = GameObject.FindGameObjectsWithTag("SkillFill");
         for (int i = 0; i < skills.Length; i++ )
         {
-            if (skills[i].cooldownRemaining > 0f)
+            if (skills[i].CooldownRemaining > 0f)
             {
-                skills[i].cooldownRemaining -= Time.deltaTime;
+                skills[i].CooldownRemaining -= Time.deltaTime;
 
-                sliders[i].GetComponent<Slider>().value = 1 - (skills[i].cooldownRemaining / skills[i].cooldownTime);
+                sliders[i].GetComponent<Slider>().value = 1 - (skills[i].CooldownRemaining / skills[i].CooldownTime);
                 fills[i].GetComponent<Image>().color = SkillNotReady;
             }
             else
